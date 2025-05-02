@@ -1,0 +1,105 @@
+✅ Objectif
+Passer de code React en JavaScript vers du React avec TypeScript, avec :
+
+🔧 Étapes générales à suivre
+
+- Ajouter les types nécessaires (Props, State)
+- Corriger la syntaxe des fonctions (notamment les flèches, parenthèses, etc.)
+- Utiliser les interfaces pour typer props et state
+- Corriger les erreurs de retour JSX
+- S'assurer que les noms et exports sont corrects
+
+🔁 Code 01 — Greeting (composant fonctionnel)
+🔄 Code original (JS, avec erreurs de syntaxe)
+
+import React depuis 'react'; 
+const Greeting = ({ name }) => ; { 
+return <div>Bonjour, {name} !</div>;
+ };
+ export default Greeting;
+
+✅ Version TypeScript corrigée et commentée
+
+// Import de React nécessaire pour JSX
+import React from 'react';
+
+// Déclaration d'une interface pour typer les props
+interface GreetingProps {
+  name: string;
+}
+
+// Composant fonctionnel avec typage des props
+const Greeting: React.FC<GreetingProps> = ({ name }) => {
+  return <div>Bonjour, {name} !</div>;
+};
+
+// Export par défaut du composant
+export default Greeting;
+
+✅ Explication
+
+interface GreetingProps : déclare que name est une string
+React.FC : facultatif mais pratique pour typer un composant fonctionnel
+
+On a corrigé la mauvaise syntaxe du => ; {
+
+🔁 Code 02 — Counter (composant classe)
+🔄 Code original (JS avec erreurs de syntaxe)
+
+import React, { Component } from 'react'; 
+class Counter extends Component { 
+state = {
+ count : 0
+ } ; increment = () => ; {
+ this.setState({ count : this.state.count + 1 }); 
+}; 
+render() { 
+return 
+( <div> 
+<p>Count : {this.state.count}</p> 
+<button onClick={this.increment}>Increment</button> 
+</div> ; );
+ }
+ } 
+exporter le compteur par défaut;
+
+✅ Version TypeScript corrigée et commentée
+
+import React, { Component } from 'react';
+// Interface pour typer le state
+interface CounterState {
+  count: number;
+}
+
+// Si besoin, on peut aussi typer les props (ici pas de props)
+class Counter extends Component<{}, CounterState> {
+  // Initialisation du state
+  state: CounterState = {
+    count: 0,
+  };
+
+  // Méthode pour incrémenter le compteur
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  // Rendu JSX
+  render() {
+    return (
+      <div>
+        <p>Count : {this.state.count}</p>
+        <button onClick={this.increment}>Increment</button>
+      </div>
+    );
+  }
+}
+
+// Export du composant
+export default Counter;
+
+✅ Explication
+
+CounterState : interface pour décrire la structure du state
+Component<{}, CounterState> : props vides, state typé
+Correction de la syntaxe JSX mal fermée (ex. : return + ())
+Correction de exporter le compteur par défaut → export default Counter
